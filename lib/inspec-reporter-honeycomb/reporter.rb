@@ -1,7 +1,8 @@
 
 require 'inspec/plugin/v2'
 require 'json'
-require "securerandom" unless defined?(SecureRandom)
+require 'socket'
+require 'securerandom' unless defined?(SecureRandom)
 
 module InspecPlugins::HoneycombReporter
   # Reporter Plugin Class
@@ -15,7 +16,7 @@ module InspecPlugins::HoneycombReporter
     end
     
     def report
-      report = Inspec::Reporters::Json.new(@config).report
+      report = Inspec::Reporters::JsonAutomate.new(@config).report
       trace_id = SecureRandom.hex(16)
       root_span_id = SecureRandom.hex(8)
       trace_batch = []
@@ -28,6 +29,7 @@ module InspecPlugins::HoneycombReporter
         'platform.name' => report[:platform][:name],
         'duration' => report[:statistics][:duration]*1000,
         'version' => report[:version],
+        'hostname' => Socket.gethostname,
       }
 
       trace_batch << root_span_data
@@ -116,6 +118,7 @@ module InspecPlugins::HoneycombReporter
             'type' => args[:type],
             'name' => args[:name],
             'duration' => time_in_ms,
+            'hostname' => Socket.gethostname,
         }
 
         args[:data].each do |k,v|

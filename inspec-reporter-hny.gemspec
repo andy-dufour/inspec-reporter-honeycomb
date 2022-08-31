@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'inspec-reporter-honeycomb'
-  spec.version       = '0.1.2'
+  spec.version       = '0.1.3'
   spec.authors       = ['Andy Dufour']
   spec.email         = ['andy.k.dufour@gmail.com']
   spec.summary       = 'InSpec Reporter plugin for Honeycomb'
