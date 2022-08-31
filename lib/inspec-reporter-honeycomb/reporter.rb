@@ -93,7 +93,7 @@ module InspecPlugins::HoneycombReporter
 
         res = http.request(req)
         if res.is_a?(Net::HTTPSuccess)
-          true
+          Inspec::Log.debug "send_report: Honeycomb POST to #{uri.path} succeeded and returned: #{res.body} "
         else
           Inspec::Log.error "send_report: POST to #{uri.path} returned: #{res.body}"
           false
@@ -102,6 +102,7 @@ module InspecPlugins::HoneycombReporter
         Inspec::Log.error "send_report: POST to #{uri.path} returned: #{e.message}"
         false
       end
+      Inspec::Log.debug "Successfully sent report"
     end
 
     private
