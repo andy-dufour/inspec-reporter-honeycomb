@@ -183,6 +183,10 @@ module InspecPlugins::HoneycombReporter
     def generate_span_data(**args)
 
         time_in_ms = args[:duration] ? args[:duration] * 1000 : 0
+        ip_addresses = []
+        Socket.ip_address_list.each do |ipaddr|
+          ip_addresses << ipaddr.ip_address unless ipaddr.ip_address == '127.0.0.1'
+        end
         span_data = {
             'trace.trace_id' => args[:trace_id],
             'trace.span_id' => args[:span_id],
