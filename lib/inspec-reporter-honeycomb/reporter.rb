@@ -197,7 +197,7 @@ module InspecPlugins::HoneycombReporter
             'hostname' => Socket.gethostname,
             'arch' => ::RbConfig::CONFIG['arch'],
             'os' => ::RbConfig::CONFIG['host_os'],
-            'ip_addresses' => ip_addresses,
+            'ip_addresses' => args[:ip_addresses],
             'profile.name' => args[:profile_name],
             'profile.title' => args[:profile_title],
             'profile.version' => args[:profile_version],
