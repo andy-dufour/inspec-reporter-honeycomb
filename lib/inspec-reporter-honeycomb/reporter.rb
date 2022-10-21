@@ -131,6 +131,9 @@ module InspecPlugins::HoneycombReporter
       headers = { "Content-Type" => "application/json" }
       headers["X-Honeycomb-Team"] = ENV['HONEYCOMB_API_KEY']
 
+      # Hardcoded as I don't have a variable to reference right now
+      headers["User-Agent"] = "inspec-reporter-honeycomb/0.1.7"
+
       uri = URI(ENV['HONEYCOMB_API_URL'])
       req = Net::HTTP::Post.new(uri.path, headers)
       req.body = trace_batch.to_json
